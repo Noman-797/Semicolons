@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-20">
+    <div class="text-center">
+        <div class="bg-card-dark rounded-lg shadow-lg p-8 sm:p-12 lg:p-16 max-w-3xl mx-auto">
+            <h1 class="text-2xl sm:text-4xl lg:text-6xl font-bold tracking-tight text-text-dark">
+                Learn with <span class="text-primary">Semicolons</span>
+            </h1>
+            <p class="mt-4 text-base sm:text-lg lg:text-xl text-subtext-dark max-w-2xl mx-auto">
+                Master new skills with our comprehensive courses and unlock your potential.
+            </p>
+            <div class="mt-8">
+                <a class="inline-block bg-primary text-white font-semibold py-3 px-8 rounded-lg shadow-md hover:bg-indigo-700 transition-all duration-300 transform hover:scale-105" href="{% url 'courses' %}">
+                    Explore Courses
+                </a>
+            </div>
+            
+        </div>
+        
+        <!-- Features Section -->
+        <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mt-12 max-w-4xl mx-auto">
+            <div class="bg-card-dark rounded-lg shadow-lg p-6 text-center border border-gray-700">
+                <div class="bg-green-500 bg-opacity-10 rounded-lg p-3 w-12 h-12 mx-auto mb-3">
+                    <span class="material-icons text-green-500 text-xl">code</span>
+                </div>
+                <h3 class="font-semibold text-text-dark text-sm mb-2">Hands-on Projects</h3>
+                <p class="text-xs text-subtext-dark">Real coding practice</p>
+            </div>
+            <div class="bg-card-dark rounded-lg shadow-lg p-6 text-center border border-gray-700">
+                <div class="bg-blue-500 bg-opacity-10 rounded-lg p-3 w-12 h-12 mx-auto mb-3">
+                    <span class="material-icons text-blue-500 text-xl">live_tv</span>
+                </div>
+                <h3 class="font-semibold text-text-dark text-sm mb-2">Live Classes</h3>
+                <p class="text-xs text-subtext-dark">Interactive sessions</p>
+            </div>
+            <div class="bg-card-dark rounded-lg shadow-lg p-6 text-center border border-gray-700">
+                <div class="bg-purple-500 bg-opacity-10 rounded-lg p-3 w-12 h-12 mx-auto mb-3">
+                    <span class="material-icons text-purple-500 text-xl">video_library</span>
+                </div>
+                <h3 class="font-semibold text-text-dark text-sm mb-2">Recorded Classes</h3>
+                <p class="text-xs text-subtext-dark">Anytime access</p>
+            </div>
+            <div class="bg-card-dark rounded-lg shadow-lg p-6 text-center border border-gray-700">
+                <div class="bg-orange-500 bg-opacity-10 rounded-lg p-3 w-12 h-12 mx-auto mb-3">
+                    <span class="material-icons text-orange-500 text-xl">money_off</span>
+                </div>
+                <h3 class="font-semibold text-text-dark text-sm mb-2">Free Courses</h3>
+                <p class="text-xs text-subtext-dark">No cost to learn</p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

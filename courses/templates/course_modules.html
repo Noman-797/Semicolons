@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+
+{% block title %}Course Modules - {{ course.title }}{% endblock %}
+
+{% block content %}
+<div class="container mx-auto px-4 sm:px-6 py-4 sm:py-8">
+    <div class="flex flex-col sm:flex-row sm:justify-between sm:items-start mb-4 sm:mb-6 space-y-2 sm:space-y-0">
+        <div>
+            <h1 class="text-xl sm:text-2xl lg:text-3xl font-bold text-text-dark mb-1 sm:mb-2">{{ course.title }}</h1>
+            <p class="text-sm sm:text-base text-subtext-dark">Course Modules & Videos</p>
+        </div>
+        <a href="{% url 'modules' course.id %}" class="text-primary hover:text-blue-400 inline-flex items-center text-sm sm:text-base">
+            <span class="material-icons mr-1 text-lg sm:text-xl">arrow_back</span>
+            Back to Course
+        </a>
+    </div>
+
+    <div class="space-y-4 sm:space-y-6">
+        {% for module in modules %}
+        <div class="bg-card-dark rounded-lg shadow-lg border border-gray-700 p-4 sm:p-6">
+            <h3 class="text-lg sm:text-xl font-bold text-text-dark mb-3 sm:mb-4 flex items-center">
+                <span class="material-icons text-primary mr-2 text-xl sm:text-2xl">folder</span>
+                <span class="text-sm sm:text-base lg:text-lg">{{ module.title }}</span>
+            </h3>
+            
+            {% if module.videos.all %}
+            <div class="space-y-3">
+                {% for video in module.videos.all %}
+                <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between p-3 sm:p-4 bg-background-dark rounded-lg border border-gray-700 hover:border-primary space-y-2 sm:space-y-0">
+                    <div class="flex items-center gap-2 sm:gap-3">
+                        <div class="w-8 h-8 sm:w-10 sm:h-10 bg-primary rounded-lg flex items-center justify-center">
+                            <span class="material-icons text-white text-lg sm:text-xl">play_arrow</span>
+                        </div>
+                        <div>
+                            <p class="text-text-dark font-medium text-sm sm:text-base">{{ video.title }}</p>
+                            {% if video.duration %}
+                            <p class="text-subtext-dark text-xs sm:text-sm flex items-center">
+                                <span class="material-icons text-xs sm:text-sm mr-1">schedule</span>
+                                {{ video.duration }}
+                            </p>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <a href="{{ video.video_url }}" target="_blank" class="bg-primary hover:bg-blue-600 text-white px-3 sm:px-4 py-2 rounded-lg font-medium inline-flex items-center text-xs sm:text-sm justify-center">
+                        <span class="material-icons mr-1 text-sm sm:text-base">play_circle</span>
+                        Watch
+                    </a>
+                </div>
+                {% endfor %}
+            </div>
+            {% else %}
+            <div class="text-center py-6 sm:py-8">
+                <span class="material-icons text-3xl sm:text-4xl text-subtext-dark mb-2">video_library</span>
+                <p class="text-subtext-dark text-sm sm:text-base">No videos available in this module yet</p>
+            </div>
+            {% endif %}
+        </div>
+        {% empty %}
+        <div class="text-center py-8 sm:py-16">
+            <div class="bg-card-dark rounded-lg p-6 sm:p-12 shadow-lg border border-gray-700 max-w-sm sm:max-w-md mx-auto">
+                <div class="bg-primary bg-opacity-10 rounded-full p-4 sm:p-6 w-16 h-16 sm:w-24 sm:h-24 mx-auto mb-4 sm:mb-6">
+                    <span class="material-icons text-primary text-3xl sm:text-5xl">folder_open</span>
+                </div>
+                <h3 class="text-lg sm:text-xl font-semibold text-text-dark mb-2 sm:mb-3">No Modules Available</h3>
+                <p class="text-subtext-dark text-sm sm:text-base">This course doesn't have any modules yet</p>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

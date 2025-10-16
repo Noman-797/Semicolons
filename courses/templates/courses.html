@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+
+{% block title %}Courses - Semicolons{% endblock %}
+
+{% block content %}
+<div class="container mx-auto px-4 sm:px-6 py-6 sm:py-8">
+    <div class="mb-6 sm:mb-8">
+        <h1 class="text-2xl sm:text-3xl font-bold text-text-dark mb-2 sm:mb-4">Explore Courses</h1>
+        <p class="text-sm sm:text-base text-subtext-dark mb-4">Discover amazing courses and enhance your skills</p>
+        <div class="max-w-full sm:max-w-md">
+            <div class="relative">
+                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                    <span class="material-icons text-subtext-dark text-lg sm:text-xl">search</span>
+                </div>
+                <input id="course-search" type="text" placeholder="Search courses..." class="block w-full pl-10 pr-3 py-2 sm:py-3 text-sm sm:text-base border border-gray-600 rounded-lg bg-card-dark text-text-dark placeholder-subtext-dark focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
+            </div>
+        </div>
+    </div>
+
+    <div id="courses-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6">
+        {% for course in courses %}
+        <div class="course-card bg-card-dark rounded-lg shadow-lg overflow-hidden">
+            <div class="relative">
+                {% if course.image %}
+                    <img src="{{ course.image.url }}" alt="{{ course.title }}" class="w-full h-48 object-cover">
+                {% else %}
+                    <div class="w-full h-48 bg-gradient-to-br from-primary to-indigo-600 flex items-center justify-center">
+                        <span class="material-icons text-white text-4xl">school</span>
+                    </div>
+                {% endif %}
+            </div>
+            <div class="p-4 sm:p-6">
+                <h3 class="course-title text-text-dark text-base sm:text-lg font-semibold mb-2 line-clamp-2">{{ course.title }}</h3>
+                <p class="course-description text-subtext-dark text-xs sm:text-sm mb-3 sm:mb-4 line-clamp-2 sm:line-clamp-3">{{ course.description }}</p>
+                <div class="flex items-center text-subtext-dark text-xs sm:text-sm mb-3 sm:mb-4">
+                    <span class="material-icons text-sm mr-1">schedule</span>
+                    <span>Starts {{ course.start_date|date:"M d, Y" }}</span>
+                </div>
+                {% if user.is_authenticated %}
+                    {% if course.id in enrolled_courses %}
+                        <div class="w-full bg-green-600 text-white text-center py-2 rounded-lg font-medium text-sm">
+                            <span class="material-icons text-sm mr-1">check_circle</span>
+                            Registered
+                        </div>
+                    {% else %}
+                        <a href="{% url 'enroll' course.id %}" class="block w-full bg-primary hover:bg-indigo-700 text-white text-center py-2 rounded-lg font-medium text-sm">
+                            Pre-Register Now
+                        </a>
+                    {% endif %}
+                {% else %}
+                    <a href="{% url 'login' %}" class="block w-full bg-gray-600 hover:bg-gray-700 text-white text-center py-2 rounded-lg font-medium text-sm">
+                        Login to Enroll
+                    </a>
+                {% endif %}
+            </div>
+        </div>
+        {% empty %}
+        <div class="col-span-full text-center py-12 sm:py-20">
+            <span class="material-icons text-4xl sm:text-6xl text-subtext-dark mb-4">school</span>
+            <h3 class="text-text-dark text-lg sm:text-xl font-semibold mb-2">No Courses Available</h3>
+            <p class="text-sm sm:text-base text-subtext-dark">Check back soon for new courses!</p>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

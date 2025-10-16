@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+
+{% block title %}Modules - {{ course.title }}{% endblock %}
+
+{% block content %}
+<div class="container mx-auto px-4 sm:px-6 py-4 sm:py-8">
+    <div class="flex flex-col sm:flex-row sm:justify-between sm:items-start mb-4 sm:mb-6 space-y-2 sm:space-y-0">
+        <div>
+            <h1 class="text-xl sm:text-2xl lg:text-3xl font-bold text-text-dark mb-1 sm:mb-2">{{ course.title }}</h1>
+            <p class="text-sm sm:text-base text-subtext-dark">Course Modules</p>
+        </div>
+        <a href="{% url 'enrollments' %}" class="text-primary hover:text-blue-400 inline-flex items-center text-sm sm:text-base">
+            <span class="material-icons mr-1 text-lg sm:text-xl">arrow_back</span>
+            Back to My Enrollments
+        </a>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6 lg:gap-8">
+        <div class="bg-card-dark rounded-lg shadow-lg border border-gray-700 p-4 sm:p-6">
+            <h3 class="text-lg sm:text-xl font-bold text-text-dark mb-3 sm:mb-4 flex items-center">
+                <span class="material-icons text-red-500 mr-2 text-xl sm:text-2xl">videocam</span>
+                <span class="text-sm sm:text-base lg:text-lg">Recorded Live Classes</span>
+            </h3>
+            {% if course.live_class_url %}
+            <div class="space-y-3">
+                <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between p-3 sm:p-4 bg-background-dark rounded-lg border border-gray-700 hover:border-red-500 space-y-2 sm:space-y-0">
+                    <div class="flex items-center gap-2 sm:gap-3">
+                        <div class="w-8 h-8 sm:w-10 sm:h-10 bg-red-600 rounded-lg flex items-center justify-center">
+                            <span class="material-icons text-white text-lg sm:text-xl">live_tv</span>
+                        </div>
+                        <div>
+                            <p class="text-text-dark font-medium text-sm sm:text-base">Live Class Recording</p>
+                            <p class="text-subtext-dark text-xs sm:text-sm">Available after session</p>
+                        </div>
+                    </div>
+                    <a href="{{ course.live_class_url }}" target="_blank" class="bg-red-600 hover:bg-red-700 text-white px-3 py-1.5 rounded text-xs sm:text-sm font-medium text-center">
+                        Join
+                    </a>
+                </div>
+            </div>
+            {% else %}
+            <div class="text-center py-6 sm:py-8">
+                <span class="material-icons text-3xl sm:text-4xl text-subtext-dark mb-2">videocam_off</span>
+                <p class="text-subtext-dark text-sm sm:text-base">No live classes available</p>
+            </div>
+            {% endif %}
+        </div>
+
+        <div class="bg-card-dark rounded-lg shadow-lg border border-gray-700 p-4 sm:p-6">
+            <h3 class="text-lg sm:text-xl font-bold text-text-dark mb-3 sm:mb-4 flex items-center">
+                <span class="material-icons text-primary mr-2 text-xl sm:text-2xl">video_library</span>
+                <span class="text-sm sm:text-base lg:text-lg">Recorded Videos</span>
+            </h3>
+            <div class="text-center py-6 sm:py-8">
+                <span class="material-icons text-3xl sm:text-4xl text-subtext-dark mb-2">folder</span>
+                <p class="text-subtext-dark mb-3 sm:mb-4 text-sm sm:text-base">Access course modules and videos</p>
+                <a href="{% url 'course_modules' course.id %}" class="bg-primary hover:bg-blue-600 text-white px-3 sm:px-4 py-2 rounded-lg font-medium inline-flex items-center text-sm sm:text-base">
+                    <span class="material-icons mr-1 text-sm sm:text-base">folder_open</span>
+                    View Modules
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

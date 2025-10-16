@@ -54,12 +54,9 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'freecourses.wsgi.application'
 
-# SQLite Database (working version)
+# PostgreSQL Database
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+    'default': dj_database_url.parse(config('DATABASE_URL', default='sqlite:///db.sqlite3'))
 }
 
 AUTH_PASSWORD_VALIDATORS = [

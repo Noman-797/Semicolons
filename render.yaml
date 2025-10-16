@@ -1,0 +1,26 @@
+services:
+  - type: web
+    name: semicolons-app
+    env: python
+    buildCommand: pip install -r requirements.txt && python manage.py collectstatic --no-input && python manage.py migrate
+    startCommand: gunicorn freecourses.wsgi:application
+    envVars:
+      - key: SECRET_KEY
+        value: django-insecure-production-key-change-this-xyz123
+      - key: DEBUG
+        value: False
+      - key: DATABASE_URL
+        fromDatabase:
+          name: semicolonsdb
+          property: connectionString
+      - key: CLOUDINARY_CLOUD_NAME
+        value: dqwrecyvp
+      - key: CLOUDINARY_API_KEY
+        value: 658864393541129
+      - key: CLOUDINARY_API_SECRET
+        value: kd-9D_m1zNdEwG_0gsr-yUJVJ78
+
+databases:
+  - name: semicolonsdb
+    databaseName: semicolonsdb_gmp4
+    user: semicolonsdb_gmp4_user

@@ -3,7 +3,7 @@
 {% block title %}Courses - Semicolons{% endblock %}
 
 {% block content %}
-<div class="container mx-auto px-4 sm:px-6 py-6 sm:py-8">
+<div class="min-h-screen container mx-auto px-4 sm:px-6 py-6 sm:py-8">
     <div class="mb-6 sm:mb-8">
         <h1 class="text-2xl sm:text-3xl font-bold text-text-dark mb-2 sm:mb-4">Explore Courses</h1>
         <p class="text-sm sm:text-base text-subtext-dark mb-4">Discover amazing courses and enhance your skills</p>
@@ -22,10 +22,10 @@
         <div class="course-card bg-card-dark rounded-lg shadow-lg overflow-hidden">
             <div class="relative">
                 {% if course.image %}
-                    <img src="{{ course.image.url }}" alt="{{ course.title }}" class="w-full h-48 object-cover">
+                    <img src="{{ course.image.url }}" alt="{{ course.title }}" class="w-full h-32 object-fill">
                 {% else %}
-                    <div class="w-full h-48 bg-gradient-to-br from-primary to-indigo-600 flex items-center justify-center">
-                        <span class="material-icons text-white text-4xl">school</span>
+                    <div class="w-full h-32 bg-gradient-to-br from-primary to-indigo-600 flex items-center justify-center">
+                        <span class="material-icons text-white text-2xl">school</span>
                     </div>
                 {% endif %}
             </div>

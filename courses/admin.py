@@ -15,7 +15,7 @@ class VideoInline(admin.TabularInline):
 @admin.register(Course)
 class CourseAdmin(admin.ModelAdmin):
     form = CourseForm
-    list_display = ['title', 'start_date', 'created_at']
+    list_display = ['title', 'start_date', 'live_class_url', 'created_at']
     list_filter = ['start_date', 'created_at']
     search_fields = ['title', 'description']
     fields = ['title', 'description', 'image', 'start_date', 'live_class_url']

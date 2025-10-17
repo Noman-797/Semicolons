@@ -9,6 +9,7 @@ class Course(models.Model):
     description = models.TextField()
     image = CloudinaryField('image', blank=True, null=True)
     start_date = models.DateField(null=True, blank=True)
+    live_class_time = models.CharField(max_length=100, blank=True, null=True, help_text="e.g., 8:00 PM BDT")
     live_class_url = models.URLField(blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
 

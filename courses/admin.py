@@ -18,7 +18,7 @@ class CourseAdmin(admin.ModelAdmin):
     list_display = ['title', 'start_date', 'live_class_url', 'created_at']
     list_filter = ['start_date', 'created_at']
     search_fields = ['title', 'description']
-    fields = ['title', 'description', 'image', 'start_date', 'live_class_url']
+    fields = ['title', 'description', 'image', 'start_date', 'live_class_time', 'live_class_url']
     inlines = [ModuleInline]
 
 @admin.register(Module)

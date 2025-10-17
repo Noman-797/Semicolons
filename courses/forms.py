@@ -13,6 +13,15 @@ class UserProfileForm(forms.ModelForm):
         required=False
     )
     
+    bio = forms.CharField(
+        widget=forms.Textarea(attrs={
+            'rows': 4,
+            'class': 'block w-full shadow-sm sm:text-sm border-border-light dark:border-border-dark rounded-lg bg-background-light dark:bg-background-dark focus:ring-primary focus:border-primary',
+            'placeholder': 'Tell us about yourself...'
+        }),
+        required=False
+    )
+    
     class Meta:
         model = UserProfile
         fields = ['photo', 'bio']

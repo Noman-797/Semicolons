@@ -3,111 +3,85 @@
 {% block title %}Dashboard - Semicolons{% endblock %}
 
 {% block content %}
-<div class="min-h-screen bg-gradient-to-br from-background-dark to-gray-900">
-    <div class="container mx-auto px-4 sm:px-6 py-6 sm:py-8 lg:py-12">
-        <div class="text-center mb-8 sm:mb-12">
-            <h1 class="text-2xl sm:text-3xl lg:text-4xl font-bold text-text-dark mb-2 sm:mb-3">Welcome back, {{ user.first_name|default:user.username }}!</h1>
-            <p class="text-sm sm:text-base lg:text-lg text-subtext-dark">Continue your learning journey</p>
-        </div>
+<div class="min-h-screen max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <!-- Welcome Section -->
+    <div class="mb-8">
+        <h2 class="text-3xl font-bold text-text-dark">Welcome back, {{ user.first_name|default:user.username }}!</h2>
+        <p class="text-subtext-dark mt-2">{{ today|date:"l, F d, Y" }}</p>
+    </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 lg:gap-8 mb-8 sm:mb-12">
-            <div class="bg-gradient-to-r from-primary to-blue-600 rounded-lg sm:rounded-xl p-4 sm:p-6 lg:p-8 shadow-2xl">
-                <div class="flex items-center justify-between">
-                    <div>
-                        <h3 class="text-base sm:text-lg lg:text-xl font-semibold text-white mb-1 sm:mb-2">Enrolled Courses</h3>
-                        <p class="text-2xl sm:text-3xl lg:text-4xl font-bold text-white">{{ enrollments.count }}</p>
-                    </div>
-                    <div class="bg-white bg-opacity-20 rounded-full p-2 sm:p-3 lg:p-4">
-                        <span class="material-icons text-white text-2xl sm:text-3xl lg:text-4xl">school</span>
-                    </div>
-                </div>
+    <!-- Enrolled Courses -->
+    <div class="bg-card-dark rounded-2xl shadow-xl p-6 mb-8 border border-gray-700">
+        <div class="flex items-center mb-6">
+            <div class="w-10 h-10 bg-primary rounded-xl flex items-center justify-center mr-3">
+                <span class="material-icons text-white">library_books</span>
             </div>
-            
-            <a href="{% url 'courses' %}" class="bg-card-dark rounded-lg sm:rounded-xl p-4 sm:p-6 lg:p-8 shadow-2xl border border-gray-700 hover:border-primary block group">
-                <div class="flex items-center justify-between">
-                    <div>
-                        <h3 class="text-base sm:text-lg lg:text-xl font-semibold text-text-dark mb-1 sm:mb-2">Available Courses</h3>
-                        <p class="text-sm sm:text-base lg:text-lg text-primary font-medium">Browse Now</p>
-                    </div>
-                    <div class="bg-primary bg-opacity-10 rounded-full p-2 sm:p-3 lg:p-4 group-hover:bg-opacity-20">
-                        <span class="material-icons text-primary text-2xl sm:text-3xl lg:text-4xl">explore</span>
-                    </div>
-                </div>
-            </a>
+            <h3 class="text-xl font-bold text-text-dark">My Courses</h3>
         </div>
-
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6 lg:gap-8 mb-6 sm:mb-8">
-            <div class="bg-card-dark rounded-lg sm:rounded-xl p-4 sm:p-6 lg:p-8 shadow-2xl border border-gray-700">
-                <h2 class="text-lg sm:text-xl lg:text-2xl font-bold text-text-dark mb-4 sm:mb-6 flex items-center">
-                    <span class="material-icons text-red-500 mr-2 sm:mr-3 text-xl sm:text-2xl">videocam</span>
-                    Live Classes
-                </h2>
-                {% if enrollments %}
-                    {% for enrollment in enrollments %}
-                        {% if enrollment.course.live_class_url %}
-                        <div class="flex flex-col sm:flex-row sm:items-center justify-between p-3 sm:p-4 bg-background-dark rounded-lg border border-gray-700 hover:border-red-500 mb-3 space-y-3 sm:space-y-0">
-                            <div class="flex items-center space-x-3 sm:space-x-4">
-                                <div class="bg-red-500 bg-opacity-10 rounded-lg p-2 sm:p-3">
-                                    <span class="material-icons text-red-500 text-lg sm:text-xl">live_tv</span>
-                                </div>
-                                <div>
-                                    <h3 class="font-semibold text-text-dark text-sm sm:text-base">{{ enrollment.course.title }}</h3>
-                                    <p class="text-xs sm:text-sm text-subtext-dark">Live class available</p>
-                                </div>
-                            </div>
-                            <a href="{{ enrollment.course.live_class_url }}" target="_blank" class="bg-red-600 hover:bg-red-700 text-white px-3 sm:px-4 py-2 rounded-lg font-medium text-sm sm:text-base text-center">
-                                Join Live
-                            </a>
-                        </div>
-                        {% endif %}
-                    {% empty %}
-                    {% endfor %}
-                {% endif %}
-                {% if not enrollments %}
-                <p class="text-sm sm:text-base text-subtext-dark text-center py-6 sm:py-8">No live classes available</p>
-                {% endif %}
-            </div>
-
         {% if enrollments %}
-            <div class="bg-card-dark rounded-lg sm:rounded-xl p-4 sm:p-6 lg:p-8 shadow-2xl border border-gray-700">
-                <h2 class="text-lg sm:text-xl lg:text-2xl font-bold text-text-dark mb-4 sm:mb-6 flex items-center">
-                    <span class="material-icons text-primary mr-2 sm:mr-3 text-xl sm:text-2xl">trending_up</span>
-                    Recent Enrollments
-                </h2>
-            <div class="grid gap-4">
-                {% for enrollment in enrollments|slice:":4" %}
-                <div class="flex flex-col sm:flex-row sm:items-center justify-between p-3 sm:p-4 bg-background-dark rounded-lg border border-gray-700 hover:border-primary space-y-3 sm:space-y-0">
-                    <div class="flex items-center space-x-3 sm:space-x-4">
-                        <div class="bg-primary bg-opacity-10 rounded-lg p-2 sm:p-3">
-                            <span class="material-icons text-primary text-lg sm:text-xl">play_circle</span>
+            <div class="space-y-3">
+                {% for enrollment in enrollments %}
+                <div class="bg-gray-800 border border-gray-700 rounded-xl p-4 hover:border-primary transition-colors">
+                    <div class="flex justify-between items-center">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
+                                <span class="material-icons text-white text-sm">play_circle</span>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-text-dark">{{ enrollment.course.title }}</h4>
+                                <p class="text-subtext-dark text-sm">{{ enrollment.course.instructor|default:"Semicolons Team" }}</p>
+                            </div>
                         </div>
-                        <div>
-                            <h3 class="font-semibold text-text-dark text-sm sm:text-base">{{ enrollment.course.title }}</h3>
-                            <p class="text-xs sm:text-sm text-subtext-dark">Enrolled {{ enrollment.enrolled_at|date:"M d, Y" }}</p>
-                        </div>
+                        <a href="{% url 'modules' enrollment.course.id %}" class="bg-primary text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition-colors">Continue</a>
                     </div>
-                    <a href="{% url 'modules' enrollment.course.id %}" class="bg-primary hover:bg-blue-600 text-white px-3 sm:px-4 py-2 rounded-lg font-medium text-sm sm:text-base text-center">
-                        Continue
-                    </a>
                 </div>
                 {% endfor %}
             </div>
-        </div>
-        </div>
         {% else %}
-        <div class="text-center py-8 sm:py-12 lg:py-16">
-            <div class="bg-card-dark rounded-lg sm:rounded-xl p-6 sm:p-8 lg:p-12 shadow-2xl border border-gray-700 max-w-sm sm:max-w-md mx-auto">
-                <div class="bg-primary bg-opacity-10 rounded-full p-4 sm:p-6 w-16 h-16 sm:w-20 sm:h-20 lg:w-24 lg:h-24 mx-auto mb-4 sm:mb-6">
-                    <span class="material-icons text-primary text-3xl sm:text-4xl lg:text-5xl">school</span>
+            <div class="text-center py-10">
+                <div class="w-16 h-16 bg-gray-800 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                    <span class="material-icons text-subtext-dark text-2xl">school</span>
                 </div>
-                <h3 class="text-lg sm:text-xl font-semibold text-text-dark mb-2 sm:mb-3">Start Your Learning Journey</h3>
-                <p class="text-sm sm:text-base text-subtext-dark mb-4 sm:mb-6">Discover amazing courses and enhance your skills</p>
-                <a href="{% url 'courses' %}" class="bg-primary hover:bg-blue-600 text-white px-4 sm:px-6 py-2 sm:py-3 rounded-lg font-medium inline-flex items-center text-sm sm:text-base">
-                    <span class="material-icons mr-1 sm:mr-2 text-lg sm:text-xl">explore</span>
-                    Browse Courses
-                </a>
+                <p class="text-subtext-dark mb-3">No enrolled courses yet</p>
+                <a href="{% url 'courses' %}" class="bg-primary text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition-colors">Browse Courses</a>
             </div>
+        {% endif %}
+    </div>
+
+    <!-- Live Sessions -->
+    <div class="bg-card-dark rounded-2xl shadow-xl p-6 mb-8 border border-gray-700">
+        <div class="flex items-center mb-6">
+            <div class="w-10 h-10 bg-red-500 rounded-xl flex items-center justify-center mr-3">
+                <span class="material-icons text-white">live_tv</span>
+            </div>
+            <h3 class="text-xl font-bold text-text-dark">Live Sessions</h3>
         </div>
+        {% if live_sessions %}
+            <div class="space-y-3">
+                {% for session in live_sessions %}
+                <div class="bg-red-500 bg-opacity-10 border border-red-500 rounded-xl p-4">
+                    <div class="flex justify-between items-center">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-8 h-8 bg-red-500 rounded-lg flex items-center justify-center">
+                                <span class="material-icons text-white text-sm">live_tv</span>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-text-dark">{{ session.course.title }}</h4>
+                                <p class="text-red-400 text-sm">{{ session.date|date:"M d, Y" }} • {{ session.time|time:"g:i A" }}</p>
+                            </div>
+                        </div>
+                        <a href="{{ session.course.live_class_url }}" target="_blank" class="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 transition-colors">Join Now</a>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <div class="text-center py-10">
+                <div class="w-16 h-16 bg-gray-800 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                    <span class="material-icons text-subtext-dark text-2xl">live_tv</span>
+                </div>
+                <p class="text-subtext-dark">No live sessions scheduled</p>
+            </div>
         {% endif %}
     </div>
 </div>

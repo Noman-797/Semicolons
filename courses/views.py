@@ -38,13 +38,38 @@ def enroll(request, course_id):
 
 @login_required
 def dashboard(request):
-    if request.user.is_staff:
-        # Admin can see all enrollments
-        enrollments = Enrollment.objects.all().order_by('-enrolled_at')
-    else:
-        # Regular users can only see their own enrollments
-        enrollments = Enrollment.objects.filter(user=request.user).order_by('-enrolled_at')
-    return render(request, 'dashboard.html', {'enrollments': enrollments})
+    from .models import Course
+    from datetime import date, datetime, timedelta
+    import random
+    
+    # User's enrollments
+    enrollments = Enrollment.objects.filter(user=request.user).select_related('course').order_by('-enrolled_at')
+    
+    # Add progress to enrollments (mock data for now)
+    for enrollment in enrollments:
+        enrollment.progress = random.randint(10, 90)
+    
+    # Live sessions (courses with live_class_url)
+    live_sessions = []
+    for enrollment in enrollments:
+        if enrollment.course.live_class_url:
+            live_sessions.append({
+                'course': enrollment.course,
+                'date': date.today() + timedelta(days=random.randint(1, 7)),
+                'time': datetime.now().replace(hour=random.randint(14, 20), minute=0)
+            })
+    
+    # Recommended courses (courses user hasn't enrolled in)
+    enrolled_course_ids = enrollments.values_list('course_id', flat=True)
+    recommended_courses = Course.objects.exclude(id__in=enrolled_course_ids)[:6]
+    
+    context = {
+        'enrollments': enrollments,
+        'live_sessions': live_sessions,
+        'recommended_courses': recommended_courses,
+        'today': date.today(),
+    }
+    return render(request, 'dashboard.html', context)
 
 @login_required
 def enrollments(request):

@@ -5,82 +5,82 @@
 {% block content %}
 <div class="min-h-screen max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
     <!-- Welcome Section -->
-    <div class="mb-8">
-        <h2 class="text-3xl font-bold text-text-dark">Welcome back, {{ user.first_name|default:user.username }}!</h2>
-        <p class="text-subtext-dark mt-2">{{ today|date:"l, F d, Y" }}</p>
+    <div class="mb-6 sm:mb-8">
+        <h2 class="text-xl sm:text-2xl lg:text-3xl font-bold text-text-dark">Welcome back, {{ user.first_name|default:user.username }}!</h2>
+        <p class="text-subtext-dark mt-1 sm:mt-2 text-sm sm:text-base">{{ today|date:"l, F d, Y" }}</p>
     </div>
 
     <!-- Enrolled Courses -->
-    <div class="bg-card-dark rounded-2xl shadow-xl p-6 mb-8 border border-gray-700">
-        <div class="flex items-center mb-6">
-            <div class="w-10 h-10 bg-primary rounded-xl flex items-center justify-center mr-3">
-                <span class="material-icons text-white">library_books</span>
+    <div class="bg-card-dark rounded-xl sm:rounded-2xl shadow-lg sm:shadow-xl p-6 sm:p-6 mb-8 sm:mb-8 border border-gray-700">
+        <div class="flex items-center mb-4 sm:mb-6">
+            <div class="w-8 h-8 sm:w-10 sm:h-10 bg-primary rounded-lg sm:rounded-xl flex items-center justify-center mr-2 sm:mr-3">
+                <span class="material-icons text-white text-sm sm:text-base">library_books</span>
             </div>
-            <h3 class="text-xl font-bold text-text-dark">My Courses</h3>
+            <h3 class="text-lg sm:text-xl font-bold text-text-dark">My Courses</h3>
         </div>
         {% if enrollments %}
-            <div class="space-y-3">
+            <div class="space-y-2 sm:space-y-3">
                 {% for enrollment in enrollments %}
-                <div class="bg-gray-800 border border-gray-700 rounded-xl p-4 hover:border-primary transition-colors">
-                    <div class="flex justify-between items-center">
-                        <div class="flex items-center space-x-3">
-                            <div class="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
-                                <span class="material-icons text-white text-sm">play_circle</span>
+                <div class="bg-gray-800 border border-gray-700 rounded-lg sm:rounded-xl p-3 sm:p-4 hover:border-primary transition-colors">
+                    <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center space-y-3 sm:space-y-0">
+                        <div class="flex items-center space-x-2 sm:space-x-3">
+                            <div class="w-6 h-6 sm:w-8 sm:h-8 bg-primary rounded-md sm:rounded-lg flex items-center justify-center flex-shrink-0">
+                                <span class="material-icons text-white text-xs sm:text-sm">play_circle</span>
                             </div>
-                            <div>
-                                <h4 class="font-semibold text-text-dark">{{ enrollment.course.title }}</h4>
-                                <p class="text-subtext-dark text-sm">{{ enrollment.course.instructor|default:"Semicolons Team" }}</p>
+                            <div class="min-w-0 flex-1">
+                                <h4 class="font-semibold text-text-dark text-sm sm:text-base truncate">{{ enrollment.course.title }}</h4>
+                                <p class="text-subtext-dark text-xs sm:text-sm">Semicolons Team</p>
                             </div>
                         </div>
-                        <a href="{% url 'modules' enrollment.course.id %}" class="bg-primary text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition-colors">Continue</a>
+                        <a href="{% url 'modules' enrollment.course.id %}" class="bg-primary text-white px-3 sm:px-4 py-2 rounded-md sm:rounded-lg hover:bg-blue-600 transition-colors text-sm sm:text-base text-center">Continue</a>
                     </div>
                 </div>
                 {% endfor %}
             </div>
         {% else %}
-            <div class="text-center py-10">
-                <div class="w-16 h-16 bg-gray-800 rounded-2xl flex items-center justify-center mx-auto mb-4">
-                    <span class="material-icons text-subtext-dark text-2xl">school</span>
+            <div class="text-center py-12 sm:py-10">
+                <div class="w-16 h-16 sm:w-16 sm:h-16 bg-gray-800 rounded-xl sm:rounded-2xl flex items-center justify-center mx-auto mb-4 sm:mb-4">
+                    <span class="material-icons text-subtext-dark text-2xl sm:text-2xl">school</span>
                 </div>
-                <p class="text-subtext-dark mb-3">No enrolled courses yet</p>
-                <a href="{% url 'courses' %}" class="bg-primary text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition-colors">Browse Courses</a>
+                <p class="text-subtext-dark mb-4 text-base sm:text-base">No enrolled courses yet</p>
+                <a href="{% url 'courses' %}" class="bg-primary text-white px-6 py-3 rounded-lg sm:rounded-lg hover:bg-blue-600 transition-colors text-base sm:text-base">Browse Courses</a>
             </div>
         {% endif %}
     </div>
 
     <!-- Live Sessions -->
-    <div class="bg-card-dark rounded-2xl shadow-xl p-6 mb-8 border border-gray-700">
-        <div class="flex items-center mb-6">
-            <div class="w-10 h-10 bg-red-500 rounded-xl flex items-center justify-center mr-3">
-                <span class="material-icons text-white">live_tv</span>
+    <div class="bg-card-dark rounded-xl sm:rounded-2xl shadow-lg sm:shadow-xl p-6 sm:p-6 mb-0 sm:mb-8 border border-gray-700">
+        <div class="flex items-center mb-4 sm:mb-6">
+            <div class="w-8 h-8 sm:w-10 sm:h-10 bg-red-500 rounded-lg sm:rounded-xl flex items-center justify-center mr-2 sm:mr-3">
+                <span class="material-icons text-white text-sm sm:text-base">live_tv</span>
             </div>
-            <h3 class="text-xl font-bold text-text-dark">Live Sessions</h3>
+            <h3 class="text-lg sm:text-xl font-bold text-text-dark">Live Sessions</h3>
         </div>
         {% if live_sessions %}
-            <div class="space-y-3">
+            <div class="space-y-2 sm:space-y-3">
                 {% for session in live_sessions %}
-                <div class="bg-red-500 bg-opacity-10 border border-red-500 rounded-xl p-4">
-                    <div class="flex justify-between items-center">
-                        <div class="flex items-center space-x-3">
-                            <div class="w-8 h-8 bg-red-500 rounded-lg flex items-center justify-center">
-                                <span class="material-icons text-white text-sm">live_tv</span>
+                <div class="bg-red-500 bg-opacity-10 border border-red-500 rounded-lg sm:rounded-xl p-3 sm:p-4">
+                    <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center space-y-3 sm:space-y-0">
+                        <div class="flex items-center space-x-2 sm:space-x-3">
+                            <div class="w-6 h-6 sm:w-8 sm:h-8 bg-red-500 rounded-md sm:rounded-lg flex items-center justify-center flex-shrink-0">
+                                <span class="material-icons text-white text-xs sm:text-sm">live_tv</span>
                             </div>
-                            <div>
-                                <h4 class="font-semibold text-text-dark">{{ session.course.title }}</h4>
-                                <p class="text-red-400 text-sm">{{ session.date|date:"M d, Y" }} • {{ session.time|time:"g:i A" }}</p>
+                            <div class="min-w-0 flex-1">
+                                <h4 class="font-semibold text-text-dark text-sm sm:text-base truncate">{{ session.course.title }}</h4>
+                                <p class="text-red-400 text-xs sm:text-sm">{{ session.date|date:"M d, Y" }} • {{ session.time|time:"g:i A" }}</p>
                             </div>
                         </div>
-                        <a href="{{ session.course.live_class_url }}" target="_blank" class="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 transition-colors">Join Now</a>
+                        <a href="{{ session.course.live_class_url }}" target="_blank" class="bg-red-500 text-white px-3 sm:px-4 py-2 rounded-md sm:rounded-lg hover:bg-red-600 transition-colors text-sm sm:text-base text-center">Join Now</a>
                     </div>
                 </div>
                 {% endfor %}
             </div>
         {% else %}
-            <div class="text-center py-10">
-                <div class="w-16 h-16 bg-gray-800 rounded-2xl flex items-center justify-center mx-auto mb-4">
-                    <span class="material-icons text-subtext-dark text-2xl">live_tv</span>
+            <div class="text-center py-12 sm:py-10">
+                <div class="w-16 h-16 sm:w-16 sm:h-16 bg-gray-800 rounded-xl sm:rounded-2xl flex items-center justify-center mx-auto mb-4 sm:mb-4">
+                    <span class="material-icons text-subtext-dark text-2xl sm:text-2xl">live_tv</span>
                 </div>
-                <p class="text-subtext-dark">No live sessions scheduled</p>
+                <p class="text-subtext-dark text-base sm:text-base">No live sessions scheduled</p>
             </div>
         {% endif %}
     </div>
